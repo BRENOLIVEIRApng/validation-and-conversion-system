@@ -1,0 +1,216 @@
+<!-- ===== HEADER.HTML - Componente Header Reutilizável ===== -->
+
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="header-left">
+                <!-- Botão Voltar (condicional - adicionar classe 'show' via JS se necessário) -->
+                <button class="back-btn hidden" id="backBtn" onclick="window.history.back()">
+                    ←
+                </button>
+
+                <div class="header-title">
+                    <h1 id="pageTitle">🛠️ Ferramentas Úteis</h1>
+                    <p id="pageSubtitle">Sistema de validação e conversão de dados</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <!-- Badge de Versão -->
+                <div class="version-badge">v2.0</div>
+
+                <!-- Menu Hamburguer para Mobile (opcional) -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile (oculto por padrão) -->
+        <nav class="mobile-menu hidden" id="mobileMenu">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html" class="mobile-menu-link">🏠 Início</a></li>
+                <li><a href="validar_cpf.html" class="mobile-menu-link">✅ Validar CPF</a></li>
+                <li><a href="converter_datas.html" class="mobile-menu-link">📅 Converter Datas</a></li>
+                <li><a href="formatar_csv.html" class="mobile-menu-link">📊 Formatar CSV</a></li>
+                <li><a href="gerar_comprovante.html" class="mobile-menu-link">📄 Gerar Comprovante</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<script>
+    // Função para atualizar título e subtítulo dinamicamente
+    function updateHeaderTitle(title, subtitle) {
+        const titleEl = document.getElementById('pageTitle');
+        const subtitleEl = document.getElementById('pageSubtitle');
+
+        if (titleEl) titleEl.textContent = title;
+        if (subtitleEl) subtitleEl.textContent = subtitle;
+    }
+
+    // Função para mostrar/ocultar botão voltar
+    function showBackButton(show = true) {
+        const backBtn = document.getElementById('backBtn');
+        if (backBtn) {
+            if (show) {
+                backBtn.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
+            }
+        }
+    }
+
+    // Função para toggle do menu mobile
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        if (menu) {
+            menu.classList.toggle('hidden');
+        }
+    }
+
+    // Detectar página atual e ajustar header
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+        // Configurações por página
+        const pageConfig = {
+            'index.html': {
+                title: '🛠️ Ferramentas Úteis',
+                subtitle: 'Sistema de validação e conversão de dados',
+                showBack: false
+            },
+            'validar_cpf.html': {
+                title: '✅ Validador de CPF',
+                subtitle: 'Verifica se um CPF é válido',
+                showBack: true
+            },
+            'converter_datas.html': {
+                title: '📅 Conversor de Datas',
+                subtitle: 'Converte datas do formato americano para brasileiro',
+                showBack: true
+            },
+            'formatar_csv.html': {
+                title: '📊 Formatador de CSV',
+                subtitle: 'Valida e limpa dados de planilhas',
+                showBack: true
+            },
+            'gerar_comprovante.html': {
+                title: '📄 Gerador de Comprovante PDF',
+                subtitle: 'Transforma JSON da API em comprovante',
+                showBack: true
+            }
+        };
+
+        const config = pageConfig[currentPage];
+        if (config) {
+            updateHeaderTitle(config.title, config.subtitle);
+            showBackButton(config.showBack);
+        }
+
+        // Destacar link ativo no menu mobile
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.style.color = 'var(--primary)';
+                link.style.fontWeight = '600';
+            }
+        });
+    });
+
+    // Fechar menu mobile ao clicar em link
+    document.querySelectorAll('.mobile-menu-link').forEach(link => {
+        link.addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) {
+                menu.classList.add('hidden');
+            }
+        });
+    });
+
+    // Fechar menu mobile ao clicar fora
+    document.addEventListener('click', function(e) {
+        const menu = document.getElementById('mobileMenu');
+        const menuBtn = document.getElementById('mobileMenuBtn');
+
+        if (menu && menuBtn && !menu.contains(e.target) && !menuBtn.contains(e.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+</script>
+
+<style>
+    /* Estilos específicos do Header Component */
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: var(--transition);
+    }
+
+    .mobile-menu-btn:hover {
+        background: var(--bg-main);
+    }
+
+    .mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        box-shadow: var(--shadow-lg);
+        border-top: 1px solid var(--border);
+        padding: 1rem 0;
+        z-index: 50;
+    }
+
+    .mobile-menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .mobile-menu-link {
+        display: block;
+        padding: 1rem 1.5rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 1rem;
+    }
+
+    .mobile-menu-link:hover {
+        background: var(--bg-main);
+        color: var(--primary);
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .mobile-menu-btn {
+            display: flex;
+        }
+
+        .version-badge {
+            display: none;
+        }
+
+        .header-content {
+            position: relative;
+        }
+    }
+</style>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatador de CSV - Ferramentas Úteis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/components.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='index.html'">←</button>
+                <div class="header-title">
+                    <h1>📊 Formatador de CSV</h1>
+                    <p>Valida e limpa dados de planilhas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="grid grid-2" style="align-items: start;">
+            <div class="card">
+                <h3 style="font-weight: 700; margin-bottom: 1.5rem;">💡 Como usar</h3>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Selecione o CSV</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">Envie o arquivo em formato UTF-8</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Processar</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">O sistema valida CPF, datas e remove colunas vazias</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Baixe o arquivo</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">CSV pronto para importação</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning" style="margin-top: 1.5rem;">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">⚠️ Atenção</p>
+                    <p style="font-size: 0.875rem;">
+                        Apenas colunas com valores serão mantidas.
+                        Certifique-se de que os CPFs sejam válidos.
+                    </p>
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 1rem;">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">💡 Dica</p>
+                    <p style="font-size: 0.875rem;">
+                        Campos de nome podem conter espaços.
+                        Evite caracteres especiais.
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <form id="uploadForm">
+                        <input type="file" id="fileInput" accept=".csv" style="display: none;">
+
+                        <div id="uploadArea" class="file-upload-area">
+                            <div class="file-upload-icon">📁</div>
+                            <p class="file-upload-text">Clique para selecionar ou arraste o arquivo CSV</p>
+                            <p class="file-upload-hint">Tamanho máximo: 10MB</p>
+                        </div>
+
+                        <ul id="fileList" class="file-list hidden"></ul>
+
+                        <div id="progress" class="hidden" style="margin-top: 1.5rem;">
+                            <div class="progress-label">
+                                <span>Processando arquivo...</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem;">
+                            📊 Processar CSV
+                        </button>
+                    </form>
+
+                    <div id="loading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Processando...</p>
+                    </div>
+
+                    <div id="result" class="hidden" style="margin-top: 1.5rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>Sistema de Ferramentas Úteis</p>
+    </div>
+</footer>
+
+<script src="static/js/api.js"></script>
+<script src="static/js/components/toast.js"></script>
+<script src="static/js/components/loader.js"></script>
+<script src="static/js/modules/csv.js"></script>
+<script>const csvModule = new CsvModule();</script>
+</body>
+</html>

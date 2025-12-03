@@ -1,0 +1,450 @@
+/* ===== ANIMATIONS.CSS ===== */
+
+/* Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Fade Out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+}
+
+/* Slide In from Top */
+@keyframes slideInTop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-top {
+    animation: slideInTop 0.4s ease-out;
+}
+
+/* Slide In from Bottom */
+@keyframes slideInBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-bottom {
+    animation: slideInBottom 0.4s ease-out;
+}
+
+/* Slide In from Left */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.4s ease-out;
+}
+
+/* Slide In from Right */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.4s ease-out;
+}
+
+/* Slide Out to Right */
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.slide-out-right {
+    animation: slideOutRight 0.3s ease-in;
+}
+
+/* Scale In */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.scale-in {
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* Scale Out */
+@keyframes scaleOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+
+.scale-out {
+    animation: scaleOut 0.3s ease-in;
+}
+
+/* Bounce In */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Shake */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+.shake {
+    animation: shake 0.6s;
+}
+
+/* Pulse */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Spin (Loading) */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Gradient Animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-animate {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+/* Float */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Wiggle */
+@keyframes wiggle {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-5deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+}
+
+.wiggle {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+/* Glow */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+    }
+}
+
+.glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Typing Effect */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.typing {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(40);
+}
+
+/* Progress Bar Fill */
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.progress-fill {
+    animation: progressFill 1.5s ease-out;
+}
+
+/* Skeleton Loading */
+@keyframes skeleton {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton 1.5s ease-in-out infinite;
+}
+
+/* Ripple Effect */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.ripple {
+    animation: ripple 0.6s ease-out;
+}
+
+/* Blink */
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+.blink {
+    animation: blink 1s step-start infinite;
+}
+
+/* Zoom In */
+@keyframes zoomIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.zoom-in {
+    animation: zoomIn 0.4s ease-out;
+}
+
+/* Flip */
+@keyframes flip {
+    from {
+        transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(400px) rotateY(0);
+        opacity: 1;
+    }
+}
+
+.flip {
+    animation: flip 0.6s ease-out;
+}
+
+/* Utility Classes */
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.animated-fast {
+    animation-duration: 0.5s;
+}
+
+.animated-slow {
+    animation-duration: 2s;
+}
+
+.animated-delay-1 {
+    animation-delay: 0.1s;
+}
+
+.animated-delay-2 {
+    animation-delay: 0.2s;
+}
+
+.animated-delay-3 {
+    animation-delay: 0.3s;
+}
+
+/* Hover Animations */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hover-grow {
+    transition: transform 0.3s ease;
+}
+
+.hover-grow:hover {
+    transform: scale(1.05);
+}
+
+.hover-shrink {
+    transition: transform 0.3s ease;
+}
+
+.hover-shrink:hover {
+    transform: scale(0.95);
+}
+
+.hover-rotate {
+    transition: transform 0.3s ease;
+}
+
+.hover-rotate:hover {
+    transform: rotate(5deg);
+}
+
+.hover-brightness {
+    transition: filter 0.3s ease;
+}
+
+.hover-brightness:hover {
+    filter: brightness(1.1);
+}

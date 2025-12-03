@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ferramentasVLS/ferramentasVLS/ferramentasVLS.iml" filepath="$PROJECT_DIR$/.idea/ferramentasVLS/ferramentasVLS/ferramentasVLS.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/validation-and-conversion-system.iml" filepath="$PROJECT_DIR$/.idea/validation-and-conversion-system.iml" />
     </modules>
   </component>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de CPF - Ferramentas Úteis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/components.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='index.html'">←</button>
+                <div class="header-title">
+                    <h1>✅ Validador de CPF</h1>
+                    <p>Verifica se um CPF é válido</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="grid grid-2" style="align-items: start;">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💡</div>
+                    <h2 class="card-title">Como usar</h2>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Digite o CPF</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">Insira o CPF com ou sem formatação</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Clique em Validar</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">O sistema verificará os dígitos verificadores</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</div>
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Veja o resultado</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">Saiba se o CPF é válido ou inválido</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 1.5rem;">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">💡 Formatos aceitos</p>
+                    <div style="font-family: monospace;">
+                        <p>123.456.789-09</p>
+                        <p>12345678909</p>
+                        <p>123 456 789 09</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 1rem;">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">ℹ️ Como funciona</p>
+                    <p style="font-size: 0.875rem;">
+                        O CPF possui 11 dígitos, sendo os 2 últimos os dígitos verificadores.
+                        O sistema calcula esses dígitos e compara com os informados para validar o CPF.
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span>🔢</span>
+                            Digite o CPF
+                        </label>
+                        <input
+                                type="text"
+                                id="cpfInput"
+                                class="form-input"
+                                placeholder="000.000.000-00"
+                                maxlength="14"
+                        />
+                        <p class="form-help">Digite o CPF com ou sem formatação</p>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button id="validateBtn" class="btn btn-primary btn-block">
+                            🔍 Validar CPF
+                        </button>
+                        <button id="clearBtn" class="btn btn-secondary">
+                            🗑️ Limpar
+                        </button>
+                    </div>
+
+                    <div id="loading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Validando...</p>
+                    </div>
+
+                    <div id="result" class="hidden" style="margin-top: 1.5rem;"></div>
+                </div>
+
+                <div id="statsArea" class="card hidden" style="margin-top: 1.5rem;">
+                    <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem;">
+                        📊 Histórico de Validações
+                    </h3>
+                    <div class="stats-grid">
+                        <div class="stat-card success">
+                            <p class="stat-label">CPFs Válidos</p>
+                            <p class="stat-value" id="totalValidos">0</p>
+                        </div>
+                        <div class="stat-card error">
+                            <p class="stat-label">CPFs Inválidos</p>
+                            <p class="stat-value" id="totalInvalidos">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>Sistema de Ferramentas Úteis - Desenvolvido para facilitar seu trabalho diário</p>
+    </div>
+</footer>
+
+<script src="static/js/api.js"></script>
+<script src="static/js/components/toast.js"></script>
+<script src="static/js/components/modal.js"></script>
+<script src="static/js/components/loader.js"></script>
+<script src="static/js/modules/cpf.js"></script>
+<script>
+    const cpfModule = new CpfModule();
+</script>
+</body>
+</html>

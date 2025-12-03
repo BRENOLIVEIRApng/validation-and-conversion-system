@@ -1,0 +1,364 @@
+<!-- ===== FOOTER.HTML - Componente Footer Reutilizável ===== -->
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <!-- Informações Principais -->
+            <div class="footer-section">
+                <h3 class="footer-title">🛠️ Ferramentas Úteis</h3>
+                <p class="footer-description">
+                    Sistema completo de validação e conversão de dados desenvolvido
+                    para facilitar seu trabalho diário.
+                </p>
+                <div class="footer-version">
+                    <span class="badge success">Versão 2.0.0</span>
+                    <span class="badge info">Java Spring Boot</span>
+                </div>
+            </div>
+
+            <!-- Links Rápidos -->
+            <div class="footer-section">
+                <h4 class="footer-section-title">Links Rápidos</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="footer-link">🏠 Início</a></li>
+                    <li><a href="validar_cpf.html" class="footer-link">✅ Validar CPF</a></li>
+                    <li><a href="converter_datas.html" class="footer-link">📅 Converter Datas</a></li>
+                    <li><a href="formatar_csv.html" class="footer-link">📊 Formatar CSV</a></li>
+                    <li><a href="gerar_comprovante.html" class="footer-link">📄 Gerar Comprovante</a></li>
+                </ul>
+            </div>
+
+            <!-- Recursos -->
+            <div class="footer-section">
+                <h4 class="footer-section-title">Recursos</h4>
+                <ul class="footer-links">
+                    <li><a href="#" class="footer-link" onclick="showDocumentation()">📖 Documentação</a></li>
+                    <li><a href="#" class="footer-link" onclick="showApiInfo()">🔌 API Endpoints</a></li>
+                    <li><a href="#" class="footer-link" onclick="showAbout()">ℹ️ Sobre o Sistema</a></li>
+                    <li><a href="#" class="footer-link" onclick="reportIssue()">🐛 Reportar Problema</a></li>
+                </ul>
+            </div>
+
+            <!-- Estatísticas (opcional) -->
+            <div class="footer-section">
+                <h4 class="footer-section-title">Status do Sistema</h4>
+                <div class="footer-status">
+                    <div class="status-item">
+                        <span class="status-indicator online"></span>
+                        <span class="status-text">API Online</span>
+                    </div>
+                    <div class="status-item" id="uptime">
+                        <span class="status-icon">⏱️</span>
+                        <span class="status-text">Carregando...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-icon">📊</span>
+                        <span class="status-text" id="requestCount">0 requisições hoje</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright e Informações Legais -->
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                <p>&copy; <span id="currentYear"></span> Sistema de Ferramentas Úteis. Todos os direitos reservados.</p>
+                <p class="footer-note">Desenvolvido com ❤️ para facilitar seu trabalho diário</p>
+            </div>
+
+            <div class="footer-tech">
+                <span class="tech-badge">Spring Boot 3.2</span>
+                <span class="tech-badge">Java 17</span>
+                <span class="tech-badge">REST API</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Atualiza ano automaticamente
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Simular verificação de uptime
+    async function checkSystemStatus() {
+        try {
+            // Tenta fazer ping na API
+            const startTime = Date.now();
+            const response = await fetch('http://localhost:8080/api/health', {
+                method: 'GET',
+                cache: 'no-cache'
+            }).catch(() => null);
+
+            const uptimeEl = document.getElementById('uptime');
+            if (response && response.ok) {
+                const responseTime = Date.now() - startTime;
+                if (uptimeEl) {
+                    uptimeEl.innerHTML = `
+                        <span class="status-icon">⚡</span>
+                        <span class="status-text">${responseTime}ms</span>
+                    `;
+                }
+            } else {
+                if (uptimeEl) {
+                    uptimeEl.innerHTML = `
+                        <span class="status-indicator offline"></span>
+                        <span class="status-text">Offline</span>
+                    `;
+                }
+            }
+        } catch (error) {
+            console.log('Sistema offline ou health endpoint não disponível');
+        }
+    }
+
+    // Atualizar contador de requisições (simulado)
+    function updateRequestCount() {
+        const count = parseInt(localStorage.getItem('requestCount') || '0');
+        const requestCountEl = document.getElementById('requestCount');
+        if (requestCountEl) {
+            requestCountEl.textContent = `${count} requisições hoje`;
+        }
+    }
+
+    // Funções de ação dos links
+    function showDocumentation() {
+        modal.show(
+            '📖 Documentação',
+            `
+            <h3 style="margin-bottom: 1rem;">Documentação Completa</h3>
+            <p>A documentação completa está disponível no arquivo <code>README.md</code> do projeto.</p>
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Principais Recursos:</h4>
+            <ul style="margin-left: 1.5rem;">
+                <li>Validação de CPF com dígitos verificadores</li>
+                <li>Conversão de datas entre formatos</li>
+                <li>Formatação e limpeza de arquivos CSV</li>
+                <li>Geração de comprovantes em PDF</li>
+            </ul>
+            `
+        );
+    }
+
+    function showApiInfo() {
+        modal.show(
+            '🔌 API Endpoints',
+            `
+            <h3 style="margin-bottom: 1rem;">Endpoints Disponíveis</h3>
+            <div style="font-family: monospace; font-size: 0.875rem;">
+                <p><strong>POST</strong> /api/cpf/validar</p>
+                <p><strong>POST</strong> /api/datas/converter</p>
+                <p><strong>POST</strong> /api/csv/processar</p>
+                <p><strong>GET</strong> /api/csv/download/{fileName}</p>
+                <p><strong>POST</strong> /api/comprovante/gerar</p>
+            </div>
+            <p style="margin-top: 1rem;">
+                <strong>Base URL:</strong> <code>http://localhost:8080/api</code>
+            </p>
+            `
+        );
+    }
+
+    function showAbout() {
+        modal.show(
+            'ℹ️ Sobre o Sistema',
+            `
+            <h3 style="margin-bottom: 1rem;">Sistema de Ferramentas Úteis</h3>
+            <p>
+                Sistema moderno desenvolvido em <strong>Spring Boot</strong> (backend)
+                e <strong>HTML/CSS/JavaScript</strong> (frontend) para validação,
+                conversão e processamento de dados.
+            </p>
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Tecnologias:</h4>
+            <ul style="margin-left: 1.5rem;">
+                <li>Java 17 + Spring Boot 3.2</li>
+                <li>REST API com validação</li>
+                <li>Frontend moderno e responsivo</li>
+                <li>Arquitetura limpa e escalável</li>
+            </ul>
+            <p style="margin-top: 1rem;">
+                <strong>Versão:</strong> 2.0.0<br>
+                <strong>Desenvolvido com:</strong> ❤️
+            </p>
+            `
+        );
+    }
+
+    function reportIssue() {
+        modal.show(
+            '🐛 Reportar Problema',
+            `
+            <h3 style="margin-bottom: 1rem;">Reportar Problema</h3>
+            <p>
+                Encontrou algum problema ou tem uma sugestão de melhoria?
+            </p>
+            <p style="margin-top: 1rem;">
+                Entre em contato com a equipe de desenvolvimento ou
+                registre uma issue no repositório do projeto.
+            </p>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                    <strong>Dica:</strong> Ao reportar um problema, inclua informações sobre:
+                    navegador, sistema operacional e passos para reproduzir o erro.
+                </p>
+            </div>
+            `
+        );
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+        checkSystemStatus();
+        updateRequestCount();
+
+        // Atualiza status a cada 30 segundos
+        setInterval(checkSystemStatus, 30000);
+    });
+</script>
+
+<style>
+    /* Estilos específicos do Footer Component */
+    footer {
+        background: var(--bg-card);
+        border-top: 1px solid var(--border);
+        margin-top: 4rem;
+        padding: 3rem 0 1.5rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .footer-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-description {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+
+    .footer-version {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: var(--transition);
+        display: inline-block;
+    }
+
+    .footer-link:hover {
+        color: var(--primary);
+        transform: translateX(3px);
+    }
+
+    .footer-status {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .status-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+    }
+
+    .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .status-indicator.online {
+        background: var(--success);
+        box-shadow: 0 0 8px var(--success);
+    }
+
+    .status-indicator.offline {
+        background: var(--error);
+    }
+
+    .status-icon {
+        font-size: 1rem;
+    }
+
+    .footer-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .footer-copyright {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+    }
+
+    .footer-note {
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+    }
+
+    .footer-tech {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tech-badge {
+        padding: 0.25rem 0.75rem;
+        background: var(--bg-main);
+        border-radius: 12px;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>
